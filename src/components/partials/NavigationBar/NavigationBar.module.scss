@@ -1,0 +1,30 @@
+.category-list {
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+
+  > .category {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    color: #0158b5;
+    padding: 8px 4px;
+    border: 1px solid transparent;
+    border-radius: 3px;
+  }
+
+  > .category.-activated {
+    border-color: #0158b5;
+  }
+
+  > .category:hover {
+    cursor: pointer;
+  }
+
+  > .category + .category {
+    margin-left: 12px;
+  }
+}
