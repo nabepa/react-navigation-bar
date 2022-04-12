@@ -60,9 +60,10 @@
     display: flex;
 
     > .image {
-      border-radius: 3px;
       flex: 0 0 content;
-      box-shadow: 8px 8px 4px rgb(0, 0, 0, 0.1);
+      height: 100%;
+      border-radius: 3px;
+      box-shadow: 8px 4px 12px rgb(0, 0, 0, 0.1);
     }
 
     > .text {
