@@ -1,9 +1,72 @@
 .container-app {
-  padding: 0 16px;
+  display: flex;
+  flex-direction: row-reverse;
+  padding: 32px;
+  height: 100%;
 
-  .header {
-    padding: 16px 0;
-    width: 100%;
+  .main {
+    flex: 1 1 auto;
+    height: 100%;
+    margin-right: 32px;
+  }
+
+  .navigation {
+    flex: 0 0 content;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    position: sticky;
+    top: 0;
+    > .caption {
+      padding: 8px 0;
+      font-weight: bold;
+      color: #ddd;
+    }
+  }
+}
+
+.section-content {
+  width: 100%;
+
+  &:nth-child(odd) {
+    > .content {
+      flex-direction: row-reverse;
+      > .image {
+        margin-left: 16px;
+      }
+    }
+  }
+
+  &:nth-child(even) {
+    > .content {
+      > .image {
+        margin-right: 16px;
+      }
+    }
+  }
+
+  & + .section-content {
+    margin-top: 16px;
+  }
+
+  > .title {
+    padding: 16px 0;
+    font-weight: bold;
+  }
+
+  > .content {
+    display: flex;
+
+    > .image {
+      border-radius: 3px;
+      flex: 0 0 content;
+      box-shadow: 8px 8px 4px rgb(0, 0, 0, 0.1);
+    }
+
+    > .text {
+      flex: 1 1 auto;
+    }
   }
 }
