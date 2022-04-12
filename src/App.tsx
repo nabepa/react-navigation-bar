@@ -1,10 +1,10 @@
 import styles from './App.module.scss';
-import { createRef, RefObject, useEffect, useRef, useState } from 'react';
-import smoothscroll from 'smoothscroll-polyfill';
+import { createRef, RefObject, useRef, useState } from 'react';
 import {
   Category,
   NavigationBar,
 } from './components/partials/NavigationBar/NavigationBar';
+import useNavigationBar from './hooks/useNavigationBar';
 
 const CATEGORY_LIST: Array<Category> = [
   { id: 'category0', title: 'What is Lorem Ipsum?' },
@@ -20,13 +20,10 @@ const App = () => {
     contentRefs.current[idx] = createRef<HTMLElement>();
   });
 
-  useEffect(() => {
-    smoothscroll.polyfill(); // Enable smooth scrolling on Safari
-    contentRefs?.current[activatedIndex]?.current?.scrollIntoView({
-      block: 'start',
-      behavior: 'smooth',
-    });
-  }, [activatedIndex]);
+  useNavigationBar(activatedIndex, contentRefs, {
+    block: 'start',
+    behavior: 'smooth',
+  });
 
   const Content = (randomSeed: number) => (
     <>
