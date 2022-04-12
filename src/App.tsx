@@ -3,7 +3,7 @@ import { createRef, RefObject, useRef, useState } from 'react';
 import {
   Category,
   NavigationBar,
-} from './components/partials/NavigationBar/NavigationBar';
+} from './components/NavigationBar/NavigationBar';
 import useNavigationBar from './hooks/useNavigationBar';
 
 const CATEGORY_LIST: Array<Category> = [
@@ -20,10 +20,17 @@ const App = () => {
     contentRefs.current[idx] = createRef<HTMLElement>();
   });
 
-  useNavigationBar(activatedIndex, contentRefs, {
-    block: 'start',
-    behavior: 'smooth',
-  });
+  useNavigationBar(
+    activatedIndex,
+    setActivatedIndex,
+    CATEGORY_LIST.length,
+    contentRefs,
+    {
+      block: 'start',
+      behavior: 'smooth',
+    },
+    { root: null, rootMargin: '0px', threshold: 0.3 }
+  );
 
   const Content = (randomSeed: number) => (
     <>
