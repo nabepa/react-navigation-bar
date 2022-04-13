@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/react-navigation-bar/static/css/main.f3289a98.css",
+    "main.js": "/react-navigation-bar/static/js/main.50524c1c.js",
+    "index.html": "/react-navigation-bar/index.html",
+    "main.f3289a98.css.map": "/react-navigation-bar/static/css/main.f3289a98.css.map",
+    "main.50524c1c.js.map": "/react-navigation-bar/static/js/main.50524c1c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f3289a98.css",
+    "static/js/main.50524c1c.js"
+  ]
+}
