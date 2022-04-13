@@ -29,7 +29,7 @@ const App = () => {
       block: 'start',
       behavior: 'smooth',
     },
-    { root: null, rootMargin: '0px', threshold: 0.05 }
+    { root: null, rootMargin: '0px', threshold: 0.8 }
   );
 
   const Content = (randomSeed: number) => (
