@@ -1,5 +1,5 @@
 import styles from './App.module.scss';
-import { createRef, RefObject, useRef, useState } from 'react';
+import { createRef, RefObject, useRef } from 'react';
 import {
   Category,
   NavigationBar,
@@ -14,22 +14,19 @@ const CATEGORY_LIST: Array<Category> = [
 ];
 
 const App = () => {
-  const [activatedIndex, setActivatedIndex] = useState<number>(0);
   const contentRefs = useRef<Array<RefObject<HTMLElement>>>([]);
   CATEGORY_LIST.forEach((_, idx) => {
     contentRefs.current[idx] = createRef<HTMLElement>();
   });
 
-  useNavigationBar(
-    activatedIndex,
-    setActivatedIndex,
+  const { activatedIndex, handleClickTab } = useNavigationBar(
     CATEGORY_LIST.length,
     contentRefs,
     {
       block: 'start',
       behavior: 'smooth',
     },
-    { root: null, rootMargin: '0px', threshold: 0.8 }
+    { root: null, rootMargin: '0px', threshold: 0.7 }
   );
 
   const Content = (randomSeed: number) => (
@@ -85,7 +82,7 @@ const App = () => {
         <NavigationBar
           categoryList={CATEGORY_LIST}
           activatedIndex={activatedIndex}
-          dispatchIndex={setActivatedIndex}
+          handleClickTab={handleClickTab}
         />
       </nav>
       <main className={styles['main']}>

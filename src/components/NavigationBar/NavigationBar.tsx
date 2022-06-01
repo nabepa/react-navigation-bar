@@ -1,5 +1,4 @@
 import styles from './NavigationBar.module.scss';
-import { Dispatch, SetStateAction } from 'react';
 
 export type Category = {
   id: string;
@@ -9,18 +8,14 @@ export type Category = {
 type Props = {
   categoryList: Array<Category>;
   activatedIndex: number;
-  dispatchIndex: Dispatch<SetStateAction<number>>;
+  handleClickTab: (index: number) => void;
 };
 
 export const NavigationBar: React.VFC<Props> = ({
   categoryList,
   activatedIndex,
-  dispatchIndex,
+  handleClickTab,
 }) => {
-  const handleClick = (index: number) => {
-    dispatchIndex(index);
-  };
-
   return (
     <ul className={styles['category-list']}>
       {categoryList.map((category, index) => (
@@ -30,7 +25,7 @@ export const NavigationBar: React.VFC<Props> = ({
           }`}
           key={category.id}
           onClick={() => {
-            handleClick(index);
+            handleClickTab(index);
           }}
         >
           {category.title}

@@ -1,29 +1,35 @@
 import {
-  Dispatch,
   MutableRefObject,
   RefObject,
-  SetStateAction,
+  useCallback,
   useEffect,
+  useState,
 } from 'react';
 import smoothscroll from 'smoothscroll-polyfill';
 
+type UseNavigationBar = {
+  activatedIndex: number;
+  handleClickTab: (index: number) => void;
+};
+
 const useNavigationBar = <T extends HTMLElement>(
-  activatedIndex: number,
-  dispatchIndex: Dispatch<SetStateAction<number>>,
   maximumIndex: number,
   contentRefs: MutableRefObject<Array<RefObject<T>>>,
   scrollIntoViewArg: boolean | ScrollIntoViewOptions | undefined,
   observerOptions: IntersectionObserverInit
-) => {
+): UseNavigationBar => {
+  const [activatedIndex, setActivatedIndex] = useState<number>(0);
   /**
    * Scroll to the content area corresponding to the activated index after clicking a tab on the navigation bar.
    */
-  useEffect(() => {
-    smoothscroll.polyfill(); // Enable smooth scrolling on Safari
-    contentRefs.current[activatedIndex]?.current?.scrollIntoView(
-      scrollIntoViewArg
-    );
-  }, [activatedIndex]);
+  const handleClickTab = useCallback(
+    (index: number) => {
+      setActivatedIndex(index);
+      smoothscroll.polyfill(); // Enable smooth scrolling on Safari
+      contentRefs.current[index]?.current?.scrollIntoView(scrollIntoViewArg);
+    },
+    [contentRefs, scrollIntoViewArg]
+  );
 
   /**
    * Update the activated index of the category based on the scroll position.
@@ -51,10 +57,10 @@ const useNavigationBar = <T extends HTMLElement>(
             return;
 
           if (entry.boundingClientRect.y < 0)
-            dispatchIndex((prev) =>
+            setActivatedIndex((prev) =>
               prev + 1 < maximumIndex ? prev + 1 : prev
             );
-          else dispatchIndex((prev) => (prev - 1 >= 0 ? prev - 1 : prev));
+          else setActivatedIndex((prev) => (prev - 1 >= 0 ? prev - 1 : prev));
         }
       });
     };
@@ -67,7 +73,9 @@ const useNavigationBar = <T extends HTMLElement>(
     return () => {
       observer.disconnect();
     };
-  }, [contentRefs, maximumIndex, dispatchIndex, observerOptions]);
+  }, [contentRefs, maximumIndex, observerOptions]);
+
+  return { activatedIndex, handleClickTab };
 };
 
 export default useNavigationBar;
